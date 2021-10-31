@@ -6,158 +6,129 @@ import static org.junit.jupiter.api.Assertions.*;
 class RadioTest {
 
     @Test
-    public void nextChannel() {
-        Radio station = new Radio();
-        station.setCurrentChannel(7);
-        station.nextChannel();
-        assertEquals(8, station.getCurrentChannel());
+    public void shouldSetCurrentStation() {
+        Radio rad = new Radio();
+        rad.setCurrentStation(5);
+        assertEquals(5, rad.getCurrentStation());
     }
 
     @Test
-    public void prevChannelFromMin() {
-        //предыдущий канал с минимального значения
-        Radio station = new Radio();
-        station.setCurrentChannel(0);
-        station.prevChannel();
-        assertEquals(9, station.getCurrentChannel());
+    public void shouldSetStationsQuantity() {
+        Radio rad = new Radio ();
+        rad.setStationsQuantity(15);
+        assertEquals(15, rad.getStationsQuantity());
     }
 
     @Test
-    //предыдущий канал с многозначного значения
-    public void prevChannelFromAnyValue() {
-        Radio station = new Radio();
-        station.setCurrentChannel(320);
-        station.prevChannel();
-        assertEquals(8, station.getCurrentChannel());
+    public void shouldSetStationsQuantityNegative() {
+        Radio rad = new Radio ();
+        rad.setStationsQuantity(-5);
+        assertEquals(10, rad.getStationsQuantity());
     }
 
     @Test
-    public void nextChannelFromMax() {
-        //следующий канал после максимального
-        Radio station = new Radio();
-        station.setCurrentChannel(9);
-        station.nextChannel();
-        assertEquals(0, station.getCurrentChannel());
+    public void shouldSetStationsQuantity10() {
+        Radio rad = new Radio ();
+        rad.setStationsQuantity(10);
+        assertEquals(10, rad.getStationsQuantity());
     }
 
     @Test
-    //следующий канал после многозначного номера
-    public void nextChannelMulti() {
-        Radio station = new Radio();
-        station.setCurrentChannel(120);
-        station.nextChannel();
-        assertEquals(0, station.getCurrentChannel());
+    public void shouldSetFactoryStation() {
+        Radio rad = new Radio();
+        assertEquals(9, rad.getMaxStation());
     }
 
     @Test
-    public void setChannel() {
-        Radio station = new Radio();
-        station.setCurrentChannel(2);
-        assertEquals(2, station.getCurrentChannel());
+    public void shouldSetStationNegative() {
+        Radio rad = new Radio();
+        rad.setCurrentStation(-1);
+        assertEquals(0, rad.getCurrentStation());
     }
 
     @Test
-    //ввести многозначные номера каналов
-    public void setChannelAny() {
-        Radio station = new Radio();
-        station.setCurrentChannel(35);
-        assertEquals(9, station.getCurrentChannel());
+    public void shouldGetNextStation() {
+        Radio rad = new Radio();
+        rad.setCurrentStation(5);
+        rad.nextStation();
+        assertEquals(6, rad.getCurrentStation());
     }
 
     @Test
-    //следующий канал после многозначного отрицательного значения
-    public void nextChannelMinus() {
-        Radio station = new Radio();
-        station.setCurrentChannel(-520);
-        station.nextChannel();
-        assertEquals(1, station.getCurrentChannel());
+    public void shouldGetNextStationFromMax() {
+        Radio rad = new Radio(20);
+        rad.setCurrentStation(rad.getMaxStation());
+        rad.nextStation();
+        assertEquals(0, rad.getCurrentStation());
     }
 
     @Test
-    //предыдущий канал после многозначного отрицательного значения
-    public void prevChannelMinus() {
-        Radio station = new Radio();
-        station.setCurrentChannel(-320);
-        station.prevChannel();
-        assertEquals(9, station.getCurrentChannel());
+    public void shouldGetPreviousStationFrom1() {
+        Radio rad = new Radio();
+        rad.setCurrentStation(1);
+        rad.prevStation();
+        assertEquals(0, rad.getCurrentStation());
     }
 
     @Test
-    //ввести многозначные отрицательные номера каналов
-    public void setChannelMinus() {
-        Radio station = new Radio();
-        station.setCurrentChannel(-20);
-        assertEquals(0, station.getCurrentChannel());
+    public void shouldGetPreviousStationFrom0() {
+        Radio rad = new Radio();
+        rad.setCurrentStation(0);
+        rad.prevStation();
+        assertEquals(9, rad.getCurrentStation());
     }
 
     @Test
-    void increaseVolume() {
-        Radio station = new Radio();
-        station.setCurrentVolume(9);
-        station.increaseVolume();
-        assertEquals(10, station.getCurrentVolume());
+    public void shouldGetPreviousStationFromMax() {
+        Radio rad = new Radio(20);
+        rad.prevStation();
+        assertEquals(19, rad.getCurrentStation());
     }
 
     @Test
-    void decreaseVolume() {
-        Radio station = new Radio();
-        station.setCurrentVolume(1);
-        station.decreaseVolume();
-        assertEquals(0, station.getCurrentVolume());
+    public void shouldSetCurrentVolume() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(3);
+        assertEquals(3, rad.getCurrentVolume());
     }
 
     @Test
-    public void increaseVolumeFromAnyVolume() {
-        //увеличить громкость с любого значения до максимального
-        Radio station = new Radio();
-        station.setCurrentVolume(100);
-        station.increaseVolume();
-        assertEquals(10, station.getCurrentVolume());
+    public void shouldSetCurrentVolumeBigNumber() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(1000);
+        assertEquals(100, rad.getCurrentVolume());
     }
 
     @Test
-    public void decreaseVolumeFromAnyVolume() {
-        //уменьшить громкость с любого многозначного значения
-        Radio station = new Radio();
-        station.setCurrentVolume(100);
-        station.decreaseVolume();
-        assertEquals(9, station.getCurrentVolume());
+    public void shouldGetVolumePlusOne() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(3);
+        rad.plusVolume();
+        assertEquals(4, rad.getCurrentVolume());
     }
 
     @Test
-    public void decreaseVolumeFromMin() {
-        //уменьшить громкость с минимального значения
-        Radio station = new Radio();
-        station.setCurrentVolume(0);
-        station.decreaseVolume();
-        assertEquals(0, station.getCurrentVolume());
+    public void shouldGetVolumePlusOneFrom100() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(100);
+        rad.plusVolume();
+        assertEquals(100, rad.getCurrentVolume());
     }
 
     @Test
-    void increaseVolumeFromMax() {
-        //увеличить громкость с максимального значения
-        Radio station = new Radio();
-        station.setCurrentVolume(10);
-        station.increaseVolume();
-        assertEquals(10, station.getCurrentVolume());
+    public void shouldGetVolumeMinusOne() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(3);
+        rad.minusVolume();
+        assertEquals(2, rad.getCurrentVolume());
     }
 
     @Test
-    public void decreaseVolumeFromAnyMinus() {
-        //уменьшить громкость с любого отрицательного значения
-        Radio station = new Radio();
-        station.setCurrentVolume(-100);
-        station.decreaseVolume();
-        assertEquals(0, station.getCurrentVolume());
-    }
-
-    @Test
-    public void increaseVolumeFromAnyMinus() {
-        //увеличить громкость с любого отрицательного значения
-        Radio station = new Radio();
-        station.setCurrentVolume(-100);
-        station.increaseVolume();
-        assertEquals(1, station.getCurrentVolume());
+    public void shouldGetVolumeMinusOneFrom0() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(0);
+        rad.minusVolume();
+        assertEquals(0, rad.getCurrentVolume());
     }
 }
 
