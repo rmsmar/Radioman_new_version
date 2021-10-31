@@ -13,10 +13,42 @@ class RadioTest {
     }
 
     @Test
+    public void shouldSetCurrentStation110() {
+        Radio rad = new Radio();
+        rad.setCurrentStation(110);
+        assertEquals(110, rad.getCurrentStation());
+    }
+
+    @Test
+    public void shouldGetStationsQuantity() {
+        Radio rad = new Radio(15);
+        assertEquals(15, rad.getStationsQuantity());
+    }
+
+    @Test
     public void shouldSetStationsQuantity() {
         Radio rad = new Radio ();
         rad.setStationsQuantity(15);
         assertEquals(15, rad.getStationsQuantity());
+    }
+
+    @Test
+    public void shouldConstructorSetStationsQuantity() {
+        Radio rad = new Radio (15);
+        assertEquals(15, rad.getStationsQuantity());
+    }
+
+    @Test
+    public void shouldSetStationsQuantityLess10() {
+        Radio rad = new Radio ();
+        rad.setStationsQuantity(5);
+        assertEquals(10, rad.getStationsQuantity());
+    }
+
+    @Test
+    public void shouldConstructorSetStationsQuantityLess10() {
+        Radio rad = new Radio (5);
+        assertEquals(10, rad.getStationsQuantity());
     }
 
     @Test
@@ -27,9 +59,21 @@ class RadioTest {
     }
 
     @Test
+    public void shouldConstructorSetStationsQuantityNegative() {
+        Radio rad = new Radio (-5);
+        assertEquals(10, rad.getStationsQuantity());
+    }
+
+    @Test
     public void shouldSetStationsQuantity10() {
         Radio rad = new Radio ();
         rad.setStationsQuantity(10);
+        assertEquals(10, rad.getStationsQuantity());
+    }
+
+    @Test
+    public void shouldConstructorSetStationsQuantity10() {
+        Radio rad = new Radio (10);
         assertEquals(10, rad.getStationsQuantity());
     }
 
@@ -76,6 +120,14 @@ class RadioTest {
         rad.setCurrentStation(0);
         rad.prevStation();
         assertEquals(9, rad.getCurrentStation());
+    }
+
+    @Test
+    public void shouldConstructorGetPreviousStationFrom0() {
+        Radio rad = new Radio(13);
+        rad.setCurrentStation(0);
+        rad.prevStation();
+        assertEquals(12, rad.getCurrentStation());
     }
 
     @Test
